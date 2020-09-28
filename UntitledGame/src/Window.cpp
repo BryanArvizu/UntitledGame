@@ -25,3 +25,16 @@ ret::Window::Window(int t_width, int t_height, std::string t_name)
 
     glViewport(0, 0, windowWidth_, windowHeight_);
 }
+
+ret::Window::~Window()
+{
+    glfwTerminate();
+}
+
+bool ret::Window::IsActive()
+{
+    glfwSwapBuffers(window_);
+    glfwPollEvents();
+
+    return !glfwWindowShouldClose(window_);
+}

@@ -8,7 +8,7 @@ ret::RetEngine::RetEngine()
 
 int ret::RetEngine::Run()
 {
-    while (false)
+    while (window_->IsActive())
     {
         UpdateEntities();
     }

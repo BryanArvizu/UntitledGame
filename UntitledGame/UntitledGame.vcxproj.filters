@@ -8,6 +8,7 @@
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Component\Mesh.cpp" />
+    <ClCompile Include="src\Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window.h" />
@@ -16,5 +17,6 @@
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Component\Mesh.h" />
+    <ClInclude Include="src\Vec3.h" />
   </ItemGroup>
 </Project>

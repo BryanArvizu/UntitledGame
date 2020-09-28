@@ -6,5 +6,7 @@ int main()
     ret::RetEngine engine;
     engine.Run();
 
+    system("pause");
+
     return 0;
 }

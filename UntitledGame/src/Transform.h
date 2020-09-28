@@ -3,6 +3,7 @@
 namespace ret {
     class Transform
     {
+    public:
         
     };
 }

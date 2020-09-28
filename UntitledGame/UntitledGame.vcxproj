@@ -158,6 +158,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Transform.cpp" />
+    <ClCompile Include="src\Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component\Mesh.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="src\RetEngine.h" />
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\Transform.h" />
+    <ClInclude Include="src\Vec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
