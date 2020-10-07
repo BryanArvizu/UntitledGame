@@ -1,6 +1,12 @@
-﻿  main.cpp
-  Vec3.cpp
+﻿  Model.cpp
+  Renderer.cpp
+X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\UntitledGame\src\Managers\Renderer.cpp(16,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\UntitledGame\src\Managers\Renderer.cpp(103,61): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\UntitledGame\src\Managers\Renderer.cpp(108,62): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\UntitledGame\src\Managers\Renderer.cpp(115,78): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  RetEngine.cpp
   Generating Code...
+     Creating library X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\x64\Debug\UntitledGame.lib and object X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\x64\Debug\UntitledGame.exp
 glfw3.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(context.obj)' or at 'X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\x64\Debug\glfw.pdb'; linking object as if no debug info
 glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(init.obj)' or at 'X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\x64\Debug\glfw.pdb'; linking object as if no debug info
 glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(input.obj)' or at 'X:\Workspace\Visual Studio Projects\UntitledGame\UntitledGame\x64\Debug\glfw.pdb'; linking object as if no debug info

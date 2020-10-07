@@ -5,18 +5,38 @@
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\RetEngine.cpp" />
     <ClCompile Include="src\Transform.cpp" />
-    <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\retTime.cpp" />
+    <ClCompile Include="src\Managers\Renderer.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="src\Deprecated\Vec3.cpp" />
     <ClCompile Include="src\Component\Mesh.cpp" />
-    <ClCompile Include="src\Vec3.cpp" />
+    <ClCompile Include="src\Component\Model.cpp" />
+    <ClCompile Include="src\Managers\ShaderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\RetEngine.h" />
     <ClInclude Include="src\Transform.h" />
-    <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\retTime.h" />
+    <ClInclude Include="src\Managers\Renderer.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\Deprecated\Vec3.h" />
+    <ClInclude Include="src\Component\Component.h" />
     <ClInclude Include="src\Component\Mesh.h" />
-    <ClInclude Include="src\Vec3.h" />
+    <ClInclude Include="src\Component\Model.h" />
+    <ClInclude Include="src\Managers\ShaderManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\shader.frag" />
+    <None Include="src\Shaders\shader.vert" />
+    <None Include="src\Shaders\light_shader.frag" />
+    <None Include="src\Shaders\light_shader.vert" />
+    <None Include="src\Shaders\error_shader.frag" />
+    <None Include="src\Shaders\error_shader.vert" />
   </ItemGroup>
 </Project>

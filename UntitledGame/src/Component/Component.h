@@ -1,8 +1,13 @@
 #pragma once
 
 namespace ret {
+    class Entity;
+
     class Component
     {
+    public:
+        Entity* entity;
+        bool enabled;
     public:
         virtual void Start() = 0;
         virtual void Update() = 0;

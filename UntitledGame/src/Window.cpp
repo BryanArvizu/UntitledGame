@@ -1,5 +1,6 @@
 #include "Window.h"
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -18,10 +19,17 @@ ret::Window::Window(int t_width, int t_height, std::string t_name)
     if (window_ == NULL)
     {
         std::cout << "RETENGINE::WINDOW::FAILURE -> \"Failed to Create Window\"" << std::endl;
+        glfwTerminate();
     }
 
+    glfwSetWindowSizeLimits(window_, 720, 480, GLFW_DONT_CARE, GLFW_DONT_CARE);
     glfwSetWindowUserPointer(window_, this);
     glfwMakeContextCurrent(window_);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+    }
 
     glViewport(0, 0, windowWidth_, windowHeight_);
 }
