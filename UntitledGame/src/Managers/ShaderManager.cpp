@@ -9,13 +9,13 @@ ret::Shader* ret::ShaderManager::GetShader(std::string path)
 
     if (iter == shaders.end())
     {
-        std::cout << "Shader (" + path + " ) not found :: Adding It" << std::endl;
+        //std::cout << "Shader (" + path + " ) not found :: Adding It" << std::endl;
         iter = shaders.insert({ path, Shader((path + ".vert").c_str(), (path + ".frag").c_str()) }).first;
-        std::cout << "Shader count: " << shaders.size() << std::endl;
+        //std::cout << "Shader count: " << shaders.size() << std::endl;
     }
     else
     {
-        std::cout << "\t\t\tShader found :: " << std::endl;
+        //std::cout << "\t\t\tShader found :: " << std::endl;
     }
     
     Shader* ptr = &(iter->second);

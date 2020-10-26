@@ -11,10 +11,13 @@
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="src\Deprecated\Vec3.cpp" />
     <ClCompile Include="src\Component\Mesh.cpp" />
     <ClCompile Include="src\Component\Model.cpp" />
     <ClCompile Include="src\Managers\ShaderManager.cpp" />
+    <ClCompile Include="src\Managers\TextureManager.cpp" />
+    <ClCompile Include="src\stb_image.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window.h" />
@@ -25,11 +28,14 @@
     <ClInclude Include="src\Managers\Renderer.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Shader.h" />
-    <ClInclude Include="src\Deprecated\Vec3.h" />
     <ClInclude Include="src\Component\Component.h" />
     <ClInclude Include="src\Component\Mesh.h" />
     <ClInclude Include="src\Component\Model.h" />
     <ClInclude Include="src\Managers\ShaderManager.h" />
+    <ClInclude Include="src\Managers\TextureManager.h" />
+    <ClInclude Include="src\stb_image.h" />
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\shader.frag" />

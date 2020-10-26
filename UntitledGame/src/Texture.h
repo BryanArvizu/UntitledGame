@@ -11,9 +11,7 @@ namespace ret {
         std::string type;
         std::string path;
     public:
-        void LoadTexture(std::string address, GLenum format);
-        void Use();
-        unsigned int GetID() const { return id; }
+        static Texture LoadTexture(const std::string &path, int channels = 4);
     };
 }
 

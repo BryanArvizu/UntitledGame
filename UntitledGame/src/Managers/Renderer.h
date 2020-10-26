@@ -7,6 +7,8 @@
 namespace ret {
     class Mesh;
     class Model;
+    class Camera;
+    class Entity;
 
     class Renderer
     {
@@ -15,6 +17,8 @@ namespace ret {
         ~Renderer();
 
         int index;
+        Camera* camera;
+        
         static std::vector<Renderer*> renderers;
 
         std::vector<ret::Model*> models_;
@@ -22,7 +26,7 @@ namespace ret {
         bool AddModel(Model* model);
         bool RemoveModel(Model* model);
         void DrawModel(Model* model);
-        void DrawMesh(Mesh mesh);
+        void DrawMesh(Mesh mesh, Entity* entity);
     };
 }
 

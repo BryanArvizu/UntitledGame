@@ -1,21 +1,25 @@
 #include "Renderer.h"
+
 #include "ShaderManager.h"
 #include "../Component/Model.h"
 #include "../Component/Mesh.h"
-#include "../Shader.h"
+#include "../Camera.h"
+#include "../Entity.h"
+
 #include <iostream>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 #include "../retTime.h"
 
 std::vector<ret::Renderer*> ret::Renderer::renderers;
 
-ret::Renderer::Renderer() : index(0), models_()
+ret::Renderer::Renderer() : index(0), models_(), camera(nullptr)
 {
     int index = renderers.size();
     renderers.push_back(this);
-    std::cout << renderers.size() << std::endl;
 }
 
 ret::Renderer::~Renderer()
@@ -24,10 +28,8 @@ ret::Renderer::~Renderer()
 
 void ret::Renderer::Draw()
 {
-    std::cout << "Renderer::Draw() called" << std::endl;
     for (unsigned int i = 0; i < models_.size(); i++)
     {
-        std::cout << "\tDrawing Model " << i << " " << std::endl;
         DrawModel(models_[i]);
     }
 }
@@ -60,12 +62,11 @@ void ret::Renderer::DrawModel(Model* model)
 {
     for (unsigned int i = 0; i < model->meshes.size(); i++)
     {
-        std::cout << "\t\tDrawing Mesh " << i << " " << std::endl;
-        DrawMesh(model->meshes[i]);
+        DrawMesh(model->meshes[i], model->entity);
     }
 }
 
-void ret::Renderer::DrawMesh(Mesh mesh)
+void ret::Renderer::DrawMesh(Mesh mesh, Entity* entity)
 {
     Shader* shader;
     if(mesh.shaderPath.size() > 0)
@@ -74,12 +75,17 @@ void ret::Renderer::DrawMesh(Mesh mesh)
         shader = ret::ShaderManager::GetShader("error_shader");
 
     // TEMP STUFFS
+    ret::Transform* transform = &entity->transform;
 
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, -1.0f, -2.0f));
-    model = glm::scale(model, glm::vec3(0.1f));
+    model = glm::translate(model, -transform->position);
+    model = glm::scale(model, transform->scale);
 
-    glm::mat4 view = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0,0,-1), glm::vec3(0,1,0));
+    glm::mat4 view;
+    if (camera == nullptr)
+        view = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+    else
+        view = camera->GetViewMatrix();
 
     glm::mat4 proj = glm::perspective(glm::radians(90.0f), 1280.0f / 720.0f, 0.1f, 1000.0f);
 
@@ -87,7 +93,7 @@ void ret::Renderer::DrawMesh(Mesh mesh)
     shader->setMat4("model", model);
     shader->setMat4("view", view);
     shader->setMat4("projection", proj);
-    //
+    shader->setFloat("time", ret::Time::GetTime());
 
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
@@ -111,7 +117,8 @@ void ret::Renderer::DrawMesh(Mesh mesh)
         glActiveTexture(GL_TEXTURE0);
 
     }
-        glBindVertexArray(mesh.VAO);
-        glDrawElements(GL_TRIANGLES, mesh.indices_.size(), GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+
+    glBindVertexArray(mesh.VAO);
+    glDrawElements(GL_TRIANGLES, mesh.indices_.size(), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 }

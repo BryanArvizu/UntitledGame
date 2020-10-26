@@ -12,6 +12,7 @@
 
 namespace ret {
     class Renderer;
+    class Entity;
 
     class Model : public Component
     {
