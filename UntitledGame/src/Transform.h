@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <vector>
 
 namespace ret {
@@ -9,14 +10,15 @@ namespace ret {
     class Transform
     {
     public:
+        Entity* entity;
+
         glm::vec3 position;
-        // glm::vec3 rotation;
+        glm::quat rotation = glm::quat();
         glm::vec3 scale;
 
         Transform* parent;
-        std::vector<Transform> children;
+        std::vector<Transform*> children;
 
-        Entity* entity;
     private:
         glm::vec3 worldPosition;
     public:

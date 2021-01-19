@@ -1,5 +1,5 @@
 #include "Model.h"
-#include "../Managers/Renderer.h"
+#include "../Rendering/Renderer.h"
 #include <iostream>
 
 ret::Model::Model()
@@ -49,9 +49,8 @@ ret::Model::Model()
         16, 17, 19, 16, 19, 18,
         20, 23, 21, 20, 22, 23
     };
-    std::vector<ret::Texture> textures = {};
 
-    Mesh mesh(cubeVertices, cubeIndices, textures);
+    Mesh mesh(cubeVertices, cubeIndices);
     meshes.push_back(mesh);
 }
 
@@ -73,13 +72,9 @@ void ret::Model::loadModel(std::string path)
 
     meshes.clear();
     directory = path.substr(0, path.find_last_of('/'));
+    filename = path.substr(path.find_last_of('/'), path.back());
+    std::cout << "FILENAME: " << directory << std::endl;
     processNode(scene->mRootNode, scene);
-}
-
-void ret::Model::AddToRenderer(Renderer* renderer)
-{
-    Model* modelPtr = this;
-    renderer->AddModel(modelPtr);
 }
 
 void ret::Model::processNode(aiNode* node, const aiScene* scene)
@@ -102,7 +97,6 @@ ret::Mesh ret::Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
 
     // Process all vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -149,33 +143,38 @@ ret::Mesh ret::Model::processMesh(aiMesh* mesh, const aiScene* scene)
         }
     }
 
+    ret::Material* mat = nullptr;
     // Process all textures
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-        std::vector<ret::Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+        mat = ret::MaterialManager::GetMaterial(filename);
+        mat->shader = ret::ShaderManager::GetShader("test_shader");
 
-        std::vector<ret::Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+        std::vector<ret::Texture*> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        mat->textures.insert(mat->textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+
+        std::vector<ret::Texture*> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        mat->textures.insert(mat->textures.end(), specularMaps.begin(), specularMaps.end());
+
+        
     }
-
-    return Mesh(vertices, indices, textures);
+    
+    return Mesh(vertices, indices, mat);
 }
 
-std::vector<ret::Texture> ret::Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+std::vector<ret::Texture*> ret::Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
-    std::vector<ret::Texture> textures;
+    std::vector<ret::Texture*> textures;
 
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
-        ret::Texture texture;
-        //texture.id = TextureFromFile(str.C_Str(), directory);
-        texture.type = typeName;
-        texture.path = str.C_Str();
+        ret::Texture* texture = ret::TextureManager::GetTexture(str.C_Str());
+        texture->type = typeName;
+        //texture->path = str.C_Str();
         textures.push_back(texture);
     }
 

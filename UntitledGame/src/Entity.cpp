@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+uint32_t ret::Entity::lastId = 0;
+
 void ret::Entity::StartComponents()
 {
     for (unsigned int i = 0; i < components_.size(); i++)
@@ -16,14 +18,17 @@ void ret::Entity::UpdateComponents()
     }
 }
 
-ret::Entity::Entity() : transform(ret::Transform(this))
+ret::Entity::Entity() : transform(ret::Transform(this)), watcher(this), enabled(true)
 {
-    enabled = true;
 }
 
 ret::Entity::~Entity()
 {
-    
+    for (Component* ptr : components_)
+    {
+        delete ptr;
+        ptr = nullptr;
+    }
 }
 
 bool ret::Entity::AddComponent(Component* component)
@@ -56,6 +61,6 @@ void ret::Entity::Update()
 {
     for (unsigned int i = 0; i < components_.size(); i++)
     {
-        components_[i]->Update();
+        components_[i]->Updater();
     }
 }

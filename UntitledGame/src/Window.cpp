@@ -25,6 +25,7 @@ ret::Window::Window(int t_width, int t_height, std::string t_name)
     glfwSetWindowSizeLimits(window_, 720, 480, GLFW_DONT_CARE, GLFW_DONT_CARE);
     glfwSetWindowUserPointer(window_, this);
     glfwMakeContextCurrent(window_);
+    glfwSwapInterval(1);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {

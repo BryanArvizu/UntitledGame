@@ -19,6 +19,7 @@ namespace ret {
     public:
         std::vector<ret::Mesh> meshes;
         std::string directory;
+        std::string filename;
 
     public:
         Model();
@@ -29,12 +30,18 @@ namespace ret {
         virtual void Update() {};
 
         void loadModel(std::string path);
-        void AddToRenderer(Renderer*);
 
     private:
         void processNode(aiNode* node, const aiScene* scene);
         ret::Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-        std::vector<ret::Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+        std::vector<ret::Texture*> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+    };
+
+    class ModelManager
+    {
+    public:
+        static std::unordered_map<std::string, Model> models;
+        static Model* GetModel(std::string path);
     };
 }
 

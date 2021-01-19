@@ -5,12 +5,24 @@
 #include <cereal/archives/json.hpp>
 
 
+ret::Scene::~Scene()
+{
+    for (auto& ptr : entities_)
+    {
+        if (ptr == nullptr)
+            continue;
+        ptr->name = "Deleted";
+        delete ptr;
+        ptr = nullptr;
+    }
+}
+
 void ret::Scene::UpdateEntities()
 {
     for (unsigned int i = 0; i < entities_.size(); i++)
     {
-        if (entities_[i].enabled == true)
-            entities_[i].Update();
+        if (entities_[i]->enabled == true)
+            entities_[i]->Update();
     }
 }
 

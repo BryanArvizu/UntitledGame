@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Entity.h"
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 ret::Camera::Camera(glm::vec3 t_pos, glm::vec3 t_rot)
@@ -13,10 +14,31 @@ ret::Camera::Camera(glm::vec3 t_pos, glm::vec3 t_rot)
 
 glm::mat4 ret::Camera::GetViewMatrix()
 {
-	if(entity != nullptr)
+	if (entity != nullptr)
+	{
 		return glm::lookAt(posOffset + entity->transform.position, posOffset + entity->transform.position + front_, up_);
+	}
 	else
 		return glm::lookAt(posOffset, posOffset + front_, up_);
+}
+
+void ret::Camera::Rotate(float t_xoffset, float t_yoffset, GLboolean t_constrainPitch)
+{
+	// There may be a bug with the math here, where higher sensitivities make the camera wonky
+	rotation.x = glm::mod(rotation.x + t_yoffset, 360.0f);
+	rotation.y = glm::mod(rotation.y + t_xoffset, 360.0f);
+
+	//std::cout << "YAW: " << yaw << " | " << "PITCH: " << pitch << std::endl;
+
+	if (t_constrainPitch)
+	{
+		if (rotation.y < 180.0f)
+			rotation.y = glm::clamp(rotation.y, -89.0f, 89.0f);
+		else
+			rotation.y = glm::clamp(rotation.y, 271.0f, 449.0f);
+	}
+
+	UpdateCameraVectors();
 }
 
 void ret::Camera::UpdateCameraVectors()

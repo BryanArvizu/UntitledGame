@@ -5,18 +5,25 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <memory>
 #include <cereal/types/vector.hpp>
+#include "Watcher.h"
 
 namespace ret {
     class Entity
     {
     public:
+        uint32_t id = lastId++;
         std::string name;
         bool enabled;
 
+        ret::Watcher watcher;
+
         ret::Transform transform;
-        std::vector<ret::Component*> components_;
+        std::vector<Component*> components_;
     private:
+        static uint32_t lastId;
+
         void StartComponents();
         void UpdateComponents();
         
@@ -28,23 +35,25 @@ namespace ret {
         bool RemoveComponent(Component* component);
         void Update();
         
-        template<class T> T* GetComponent();
+        template<class T> void GetComponent(T* &t_ptr);
     };
 
 
 
-
-
-
     template<class T>
-    T* Entity::GetComponent()
+    void Entity::GetComponent(T* &t_ptr)
     {
         for (unsigned int i = 0; i < components_.size(); i++)
         {
             if (typeid(T) == typeid(*components_[i]))
-                return dynamic_cast<T*>(components_[i]);
+            {
+                std::cout << "MATCHING TYPE" << std::endl;
+                //t_ptr = static_cast<T*>(components_[i]);
+                components_[i]->watcher.FetchPointer<T>(t_ptr);
+                return;
+            }
         }
-        return nullptr;
+        t_ptr = nullptr;
     }
 }
 

@@ -7,17 +7,25 @@
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\retTime.cpp" />
-    <ClCompile Include="src\Managers\Renderer.cpp" />
-    <ClCompile Include="src\Texture.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\Component\Mesh.cpp" />
     <ClCompile Include="src\Component\Model.cpp" />
-    <ClCompile Include="src\Managers\ShaderManager.cpp" />
-    <ClCompile Include="src\Managers\TextureManager.cpp" />
     <ClCompile Include="src\stb_image.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Component\TestComponent.cpp" />
+    <ClCompile Include="src\Component\RigidBody.cpp" />
+    <ClCompile Include="src\Component\Collider.cpp" />
+    <ClCompile Include="src\Rendering\Renderer.cpp" />
+    <ClCompile Include="src\Rendering\Texture.cpp" />
+    <ClCompile Include="src\Rendering\Shader.cpp" />
+    <ClCompile Include="src\Physics\Physics.cpp" />
+    <ClCompile Include="SRC\SHADER.CPP" />
+    <ClCompile Include="src\Rendering\ShaderManager.cpp" />
+    <ClCompile Include="src\Rendering\TextureManager.cpp" />
+    <ClCompile Include="src\Rendering\MaterialManager.cpp" />
+    <ClCompile Include="src\Component\ModelManager.cpp" />
+    <ClCompile Include="src\Rendering\Material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window.h" />
@@ -25,17 +33,21 @@
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\retTime.h" />
-    <ClInclude Include="src\Managers\Renderer.h" />
-    <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Component\Component.h" />
     <ClInclude Include="src\Component\Mesh.h" />
     <ClInclude Include="src\Component\Model.h" />
-    <ClInclude Include="src\Managers\ShaderManager.h" />
-    <ClInclude Include="src\Managers\TextureManager.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\Component\TestComponent.h" />
+    <ClInclude Include="src\Watcher.h" />
+    <ClInclude Include="src\Component\RigidBody.h" />
+    <ClInclude Include="src\Component\Collider.h" />
+    <ClInclude Include="src\Rendering\Renderer.h" />
+    <ClInclude Include="src\Rendering\Texture.h" />
+    <ClInclude Include="src\Rendering\Material.h" />
+    <ClInclude Include="src\Rendering\Shader.h" />
+    <ClInclude Include="src\Physics\Physics.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\shader.frag" />
@@ -44,5 +56,7 @@
     <None Include="src\Shaders\light_shader.vert" />
     <None Include="src\Shaders\error_shader.frag" />
     <None Include="src\Shaders\error_shader.vert" />
+    <None Include="src\Shaders\test_shader.frag" />
+    <None Include="src\Shaders\test_shader.vert" />
   </ItemGroup>
 </Project>

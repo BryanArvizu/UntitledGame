@@ -2,8 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <vector>
-#include "../Shader.h"
-#include "../Texture.h"
+#include "../Rendering/Material.h"
 
 namespace ret {
     struct Vertex {
@@ -16,16 +15,14 @@ namespace ret {
     {
     public:
         unsigned int VBO, VAO, EBO;
-        Shader* shader;
-        std::string shaderPath;
+        ret::Material* material = nullptr;
 
         std::vector<Vertex> vertices_;
         std::vector<unsigned int> indices_;
-        std::vector<ret::Texture> textures_;
     public:
         Mesh(const std::vector<Vertex>& vertices,
              const std::vector<unsigned int>& indices,
-             const std::vector<Texture>& textures);
+             Material* mat = nullptr);
         ~Mesh();
         void SetupMesh();
         

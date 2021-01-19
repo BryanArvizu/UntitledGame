@@ -3,22 +3,34 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Entity.h"
-#include "Managers/Renderer.h"
+#include "Rendering/Renderer.h"
+#include "Physics/Physics.h"
 #include <vector>
+#include <memory>
 
 namespace ret {
     class RetEngine
     {
-    private:
-        ret::Window* window_;
-        ret::Renderer renderer;
-        std::vector<ret::Scene> scenes_;
     public:
+        std::unique_ptr<ret::Window> window_;
+        ret::Renderer* renderer = nullptr;
+        ret::Physics* physics = nullptr;
+        std::vector<ret::Scene> scenes_;
+
+    private:
+        static RetEngine* instance;
+        double accumulator = 0.0f;
+        double fixedAccumulator = 0.0f;
+    public:
+        static int Start();
+        static RetEngine* Get() { return instance; }
+    private:
+        int Run();
+
         RetEngine();
         ~RetEngine();
-        int Run();
-    private:
-        void UpdateScenes();
+
+        ret::Scene& CreateScene();
     };
 }
 

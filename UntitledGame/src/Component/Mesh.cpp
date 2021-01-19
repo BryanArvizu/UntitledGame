@@ -3,11 +3,11 @@
 
 ret::Mesh::Mesh(const std::vector<ret::Vertex>& vertices, 
                 const std::vector<unsigned int>& indices, 
-                const std::vector<ret::Texture>& textures)
+                Material* mat)
 {
 	vertices_ = vertices;
 	indices_ = indices;
-	textures_ = textures;
+	material = mat;
 
 	SetupMesh();
 }
