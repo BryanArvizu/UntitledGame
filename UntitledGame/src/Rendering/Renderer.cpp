@@ -23,11 +23,6 @@ ret::Renderer::Renderer() : index(0), models_()
     int index = renderers.size();
     renderers.push_back(this);
 
-    glClearColor(0.0f, 0.7f, 0.9f, 1.0f);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
     defaultShader = ret::ShaderManager::GetShader("error_shader");
 }
 
@@ -37,6 +32,10 @@ ret::Renderer::~Renderer()
 
 void ret::Renderer::Draw()
 {
+    glClearColor(0.0f, 0.1f, 0.2f, 0.1f);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for (unsigned int i = 0; i < models_.size(); i++)
     {

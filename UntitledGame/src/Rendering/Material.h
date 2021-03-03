@@ -2,6 +2,7 @@
 
 #include "Shader.h"
 #include "Texture.h"
+#include "../Manager.h"
 
 #include <vector>
 #include <string>
@@ -12,6 +13,8 @@ namespace ret {
     public:
         Material() = default;
         Material(std::string shaderPath);
+
+        static Manager<Material> manager;
 
         Shader* shader = nullptr;
         std::vector<ret::Texture*> textures;

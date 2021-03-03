@@ -2,10 +2,24 @@
 #include "../RetEngine.h"
 #include "Collider.h"
 #include <iostream>
+#include <PxPhysicsAPI.h>
+
+//ret::DebugRenderer* ret::RigidBody::debugRenderer = nullptr;
 
 ret::RigidBody::RigidBody()
 {
+    /*if (ret::RigidBody::debugRenderer == nullptr)
+    {
+        ret::RigidBody::debugRenderer = ret::RetEngine::instance->debugRenderer;
+    }*/
+
     geometry = new physx::PxSphereGeometry(1);
+    
+    /*if (debugRenderer)
+    {
+        debugRenderer->AddRigidBody(this);
+    }*/
+
 }
 
 ret::RigidBody::RigidBody(Collider* col)
@@ -26,6 +40,10 @@ ret::RigidBody::RigidBody(Collider* col)
 
 ret::RigidBody::~RigidBody()
 {
+    /*if (debugRenderer)
+    {
+        debugRenderer->RemoveRigidBody(this);
+    }*/
 }
 
 void ret::RigidBody::Start()

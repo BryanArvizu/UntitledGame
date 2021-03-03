@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "../Physics/Physics.h"
+#include "../Physics/PhysicsEngine.h"
 #include <PxPhysicsAPI.h>
 
 namespace ret {
@@ -14,7 +14,7 @@ namespace ret {
         RigidBody(Collider* col);
         ~RigidBody();
 
-        ret::Physics* physicsEngine = nullptr;
+        ret::PhysicsEngine* physicsEngine = nullptr;
 
         physx::PxShape* shape = nullptr;
         physx::PxMaterial* material = nullptr;

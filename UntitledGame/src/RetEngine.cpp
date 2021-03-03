@@ -5,10 +5,11 @@
 
 #include "Camera.h"
 #include "Rendering/Shader.h"
+#include "Component/Render.h"
 #include "Component/Model.h"
-#include "Component/TestComponent.h"
+#include "Component/CameraController.h"
 #include "Component/Rigidbody.h"
-#include "Physics/Physics.h"
+#include "Physics/PhysicsEngine.h"
 #include "Component/Collider.h"
 
 ret::RetEngine* ret::RetEngine::instance = 0;
@@ -26,9 +27,7 @@ ret::RetEngine::~RetEngine()
 int ret::RetEngine::Start()
 {
     if (instance != nullptr)
-    {
         return -1;
-    }
 
     instance = new RetEngine();
 
@@ -45,8 +44,10 @@ int ret::RetEngine::Run()
     window_ = std::unique_ptr<Window>(new Window(1280, 720, "Smile"));
 
     ret::Time::Start();
-    physics = new Physics();
+    physics = new PhysicsEngine();
     renderer = new Renderer();
+
+    Entity* ePtr;
 
     {
         ret::Scene& scene1 = CreateScene();
@@ -71,8 +72,13 @@ int ret::RetEngine::Run()
         }
 
         Entity* tree = new Entity();
+        ePtr = tree;
         tree->transform.position = glm::vec3(0, 0, 2);
-        tree->transform.scale = glm::vec3(2.5f);
+        tree->transform.scale = glm::vec3(0.25f);
+        Render* render = new ret::Render();
+        render->model = ret::ModelManager::GetModel("Assets/Models/robo.fbx");
+        render->mat = mat;
+        render->layer = 0x01;
         Model* fatTree = new ret::Model("Assets/Models/robo.fbx");
         for (auto& mesh : fatTree->meshes)
         {
@@ -106,7 +112,7 @@ int ret::RetEngine::Run()
         cam->transform.position = glm::vec3(-4, -1, 0);
         Camera* camComponent = new Camera();
         renderer->camera = camComponent;
-        TestComponent* testComp = new TestComponent();
+        CameraController* testComp = new CameraController();
         cam->AddComponent(camComponent);
         cam->AddComponent(testComp);
         scene1.entities_.push_back(cam);
@@ -114,9 +120,9 @@ int ret::RetEngine::Run()
         std::cout << tree->id << " " << box->id << " " << cam->id << std::endl;
     }
 
-    fixedAccumulator = 0.0f;
-    accumulator = 0.0f;
-    double lastFrame = 0.0f;
+    fixedAccumulator = 0.0;
+    accumulator = 0.0;
+    double lastFrame = 0.0;
 
     while (window_->IsActive())
     {
@@ -140,6 +146,7 @@ int ret::RetEngine::Run()
         }
         
         renderer->Draw();
+        //debugRenderer->Draw();
     }
 
     return 0;

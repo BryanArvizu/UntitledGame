@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include "Entity.h"
 #include "Rendering/Renderer.h"
-#include "Physics/Physics.h"
+#include "Physics/PhysicsEngine.h"
 #include <vector>
 #include <memory>
 
@@ -14,11 +14,11 @@ namespace ret {
     public:
         std::unique_ptr<ret::Window> window_;
         ret::Renderer* renderer = nullptr;
-        ret::Physics* physics = nullptr;
+        ret::PhysicsEngine* physics = nullptr;
         std::vector<ret::Scene> scenes_;
 
-    private:
         static RetEngine* instance;
+    private:
         double accumulator = 0.0f;
         double fixedAccumulator = 0.0f;
     public:

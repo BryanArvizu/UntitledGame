@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -154,10 +154,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Component\Render.cpp" />
+    <ClCompile Include="src\Manager.cpp" />
     <ClCompile Include="src\Component\Collider.cpp" />
     <ClCompile Include="src\Component\ModelManager.cpp" />
     <ClCompile Include="src\Component\RigidBody.cpp" />
-    <ClCompile Include="src\Physics\Physics.cpp" />
+    <ClCompile Include="src\Physics\PhysicsEngine.cpp" />
     <ClCompile Include="src\Rendering\Material.cpp" />
     <ClCompile Include="src\Rendering\MaterialManager.cpp" />
     <ClCompile Include="src\Rendering\ShaderManager.cpp" />
@@ -173,18 +175,19 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\RetEngine.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="SRC\SHADER.CPP" />
     <ClCompile Include="src\stb_image.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Rendering\Texture.cpp" />
-    <ClCompile Include="src\Component\TestComponent.cpp" />
+    <ClCompile Include="src\Component\CameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Component\Render.h" />
+    <ClInclude Include="src\Manager.h" />
     <ClInclude Include="src\Rendering\Material.h" />
     <ClInclude Include="src\Component\Collider.h" />
     <ClInclude Include="src\Component\RigidBody.h" />
-    <ClInclude Include="src\Physics\Physics.h" />
+    <ClInclude Include="src\Physics\PhysicsEngine.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Component\Model.h" />
@@ -199,7 +202,7 @@
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Rendering\Texture.h" />
-    <ClInclude Include="src\Component\TestComponent.h" />
+    <ClInclude Include="src\Component\CameraController.h" />
     <ClInclude Include="src\Watcher.h" />
   </ItemGroup>
   <ItemGroup>
