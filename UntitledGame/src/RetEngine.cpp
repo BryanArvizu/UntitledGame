@@ -79,13 +79,7 @@ int ret::RetEngine::Run()
         render->model = ret::ModelManager::GetModel("Assets/Models/robo.fbx");
         render->mat = mat;
         render->layer = 0x01;
-        Model* fatTree = new ret::Model("Assets/Models/robo.fbx");
-        for (auto& mesh : fatTree->meshes)
-        {
-            mesh.material = mat;
-        }
-        renderer->AddModel(fatTree);
-        tree->AddComponent(fatTree);
+        tree->AddComponent(render);
         scene1.entities_.push_back(tree);
 
         Entity* box;
@@ -94,13 +88,11 @@ int ret::RetEngine::Run()
             box = new Entity(); 
             box->transform.position = glm::vec3(i*0.25, i*10+40, -2);
             box->transform.scale = glm::vec3(1.0f);
-            Model* cubeComponent = new Model();
-            for (auto& mesh : cubeComponent->meshes)
-            {
-                mesh.material = mat;
-            }
-            renderer->AddModel(cubeComponent);
-            box->AddComponent(cubeComponent);
+            Render* render = new ret::Render();
+            render->model = ret::ModelManager::GetModel("Assets/Models/robo.fbx");
+            render->mat = mat;
+            render->layer = 0x01;
+            box->AddComponent(render);
             ret::Collider* col = new ret::Collider();
             col->setCube(0.5);
             RigidBody* rb = new RigidBody(col);

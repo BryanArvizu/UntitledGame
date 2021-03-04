@@ -48,7 +48,6 @@ namespace ret {
             if (typeid(T) == typeid(*components_[i]))
             {
                 std::cout << "MATCHING TYPE" << std::endl;
-                //t_ptr = static_cast<T*>(components_[i]);
                 components_[i]->watcher.FetchPointer<T>(t_ptr);
                 return;
             }

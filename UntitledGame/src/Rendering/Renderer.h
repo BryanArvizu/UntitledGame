@@ -11,6 +11,8 @@ namespace ret {
     class Camera;
     class Entity;
     class Transform;
+    class Render;
+    class Material;
 
     class Renderer
     {
@@ -18,20 +20,17 @@ namespace ret {
         Renderer();
         ~Renderer();
 
-        int index;
         Camera* camera = nullptr;
         Shader* defaultShader = nullptr;
-        
-        static std::vector<Renderer*> renderers;
 
-        std::vector<Model*> models_;
+        std::vector<Render*> renderList;
         void Draw();
 
-        bool AddModel(Model* t_modelPtr);
-        bool RemoveModel(Model* t_modelPtr);
+        bool Add(Render* t_renderPtr);
+        bool Remove(Render* t_renderPtr);
 
-        void DrawModel(Model* &t_modelPtr);
-        void DrawMesh(Mesh mesh, const Transform& transform);
+        void DrawModel(const Model* t_modelPtr, const Transform &t_transform, const Material* t_material);
+        void DrawMesh(const Mesh &mesh, const Transform& transform, const Material* &t_material);
     };
 }
 

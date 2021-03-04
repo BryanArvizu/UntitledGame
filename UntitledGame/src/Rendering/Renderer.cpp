@@ -3,6 +3,7 @@
 #include "Shader.h"
 #include "Texture.h"
 
+#include "../Component/Render.h"
 #include "../Component/Model.h"
 #include "../Component/Mesh.h"
 #include "../Camera.h"
@@ -16,13 +17,8 @@
 
 #include "../retTime.h"
 
-std::vector<ret::Renderer*> ret::Renderer::renderers;
-
-ret::Renderer::Renderer() : index(0), models_()
+ret::Renderer::Renderer() : renderList()
 {
-    int index = renderers.size();
-    renderers.push_back(this);
-
     defaultShader = ret::ShaderManager::GetShader("error_shader");
 }
 
@@ -37,54 +33,55 @@ void ret::Renderer::Draw()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    for (unsigned int i = 0; i < models_.size(); i++)
+    for (unsigned int i = 0; i < renderList.size(); i++)
     {
-        DrawModel(models_[i]);
+        DrawModel(renderList[i]->model, renderList[i]->entity->transform, renderList[i]->mat);
     }
 }
 
-bool ret::Renderer::AddModel(Model* t_modelPtr)
+bool ret::Renderer::Add(Render* t_renderPtr)
 {
-    for (unsigned int i = 0; i < models_.size(); i++)
+    for (unsigned int i = 0; i < renderList.size(); i++)
     {
-        if (t_modelPtr == models_[i])
+        if (t_renderPtr == renderList[i])
             return false;
     }
-    models_.push_back(t_modelPtr);
+    renderList.push_back(t_renderPtr);
     return true;
 }
 
-bool ret::Renderer::RemoveModel(Model* t_modelPtr)
+bool ret::Renderer::Remove(Render* t_renderPtr)
 {
-    for (unsigned int i = 0; i < models_.size(); i++)
+    for (unsigned int i = 0; i < renderList.size(); i++)
     {
-        if (t_modelPtr == models_[i])
+        if (t_renderPtr == renderList[i])
         {
-            models_.erase(models_.begin() + i);
+            renderList.erase(renderList.begin() + i);
             return true;
         }
     }
     return false;
 }
 
-void ret::Renderer::DrawModel(Model* &t_modelPtr)
+void ret::Renderer::DrawModel(const Model* t_modelPtr, const Transform &t_transform, const Material* t_material)
 {
-    if (t_modelPtr->entity == nullptr)
-        return;
-
     for (unsigned int i = 0; i < t_modelPtr->meshes.size(); i++)
     {
-        DrawMesh(t_modelPtr->meshes[i], t_modelPtr->entity->transform);
+        DrawMesh(t_modelPtr->meshes[i], t_transform, t_material);
     }
 }
 
-void ret::Renderer::DrawMesh(Mesh mesh, const Transform &transform)
+void ret::Renderer::DrawMesh(const Mesh &mesh, const Transform &transform, const Material* &t_material)
 {
     Shader* shader = defaultShader;
     
     if (mesh.material != nullptr && mesh.material->shader != nullptr)
     {
         shader = mesh.material->shader;
+    }
+    else if (t_material != nullptr && t_material->shader != nullptr)
+    {
+        shader = t_material->shader;
     }
     
     glm::mat4 model = glm::mat4(1.0f);
